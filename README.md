@@ -9,9 +9,10 @@
    container of the desired width.
 
 For sample usage and for testing, this comes with a `FlexibleImageTestView`
-view class in `views.py` and a sample 3:2 (ish) image in
-`static/responsive-test-image.jpg`. (Stick this in your MEDIA_ROOT; ImageFile
-gets upset if you try to open a file outside of it.)
+view class in `views.py` and sample 3:2 (ish) images as
+`static/responsive-test-image-1.jpg` and
+`static/responsive-test-image-2.jpg`. (Copy these to your MEDIA_ROOT;
+ImageFile gets upset if you try to open a file outside of it.)
 
 ## What does it do?
 
