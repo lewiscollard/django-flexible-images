@@ -45,19 +45,20 @@
     }
     </style>
     <script src="https://code.jquery.com/jquery-1.11.2.js"></script>
+    <script src="/static/flexible-images/flexible-images.js"></script>
 </head>
 <body>
 
-    {% flexible_image image alt="I am a full-width responsive image!" %}
+    {% flexible_image image_1 alt="I am a full-width responsive image!" %}
 
     <p>Two-up:</p>
 
     <div style="width: 49%; float: left; margin-right: 1%;">
-        {% flexible_image image container="section" alt="I am on the left" %}
+        {% flexible_image image_2 container="section" alt="I am on the left" %}
     </div>
 
     <div style="width: 49%; float: left; margin-left: 1%;">
-        {% flexible_image image container="section" alt="I am on the right" %}
+        {% flexible_image image_1 container="section" alt="I am on the right" %}
     </div>
 
     <p style="clear: both;">
@@ -65,16 +66,16 @@
     </p>
 
     <div style="width: 32.33%; float: left;">
-        {% flexible_image image container="section" %}
+        {% flexible_image image_2 container="section" %}
     </div>
 
     <div style="width: 32.33%; float: left; margin-left: 1.5%;">
-        {% flexible_image image container="section" %}
+        {% flexible_image image_1 container="section" %}
     </div>
 
 
     <div style="width: 32.33%; float: left; margin-left: 1.5%">
-        {% flexible_image image container="section" %}
+        {% flexible_image image_2 container="section" %}
     </div>
 
     <p style="clear: both">Hooray!</p>
