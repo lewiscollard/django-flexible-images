@@ -62,6 +62,15 @@ function flexibleImageSwitcher() {
 }
 
 if (window.addEventListener) {
+  var resizeTimeout = null;
   window.addEventListener("DOMContentLoaded", flexibleImageSwitcher);
-  window.addEventListener("resize", flexibleImageSwitcher);
+  window.addEventListener("resize", function() {
+    // Avoid storms of events being fired during resize by doing it once,
+    // 500ms after the last resize.
+    if (resizeTimeout) {
+      window.clearTimeout(resizeTimeout);
+      resizeTimeout = null;
+    }
+    resizeTimeout = window.setTimeout(flexibleImageSwitcher, 500);
+  });
 }
