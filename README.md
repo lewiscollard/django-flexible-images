@@ -65,7 +65,7 @@ It will also do this when a window is resized (including device rotation). It
 will never switch out a low-resolution image for a high-resolution one.
 
 This was inspired by
-(django-responsive-images)[https://github.com/onespacemedia/django-responsive-images],
+[django-responsive-images](https://github.com/onespacemedia/django-responsive-images),
 but it is implemented somewhat differently.
 
 ## How?
