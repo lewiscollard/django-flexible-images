@@ -1,5 +1,4 @@
 #!/usr/bin/python
-from uuid import uuid4
 import json
 
 from django import template
@@ -45,7 +44,6 @@ def flexible_image(context, src, container="div", classes="", alt=""):
         "aspect_padding_bottom": aspect_ratio_percent(src),
         "alt": alt,
         "use_js": use_js,
-        "uuid": "id_{}".format(uuid4().hex.replace("-", "")),
     }
 
     serve_now = False
