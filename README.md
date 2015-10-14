@@ -1,19 +1,25 @@
-django-flexible-images, a responsive image solution for Django
-==============================================================
+# django-flexible-images, a responsive image solution for Django
 
-Quick usage
------------
+# Quick usage
 
 1. Add `flexible_images` to your `INSTALLED_APPS`.
 2. Load the `flexible_images` template tag library.
-3. Use `{% flexible_image your_model_instance.some_imagefield %}` inside a
+3. Load `flexible-images/flexible-images.js` in your template.
+4. Use `{% flexible_image your_model_instance.some_imagefield %}` inside a
    container of the desired width.
 
 For sample usage and for testing, this comes with a `FlexibleImageTestView`
-view class in `views.py` and a sample 3:2 (ish) image.
+view class in `views.py` and a sample 3:2 (ish) image in
+`static/responsive-test-image.jpg`. (Stick this in your MEDIA_ROOT; ImageFile
+gets upset if you try to open a file outside of it.)
 
-Smarter aspect ratio preservation
----------------------------------
+# What does it do?
+
+## Smarter aspect ratio preservation
+
+I consider this the most important feature, in that it drastically reduces
+the time taken to get to a ready state on the document.
+
 We want to ensure that images will fit on any screen size without overflowing,
 but preserve their aspect ratio.
 
@@ -49,8 +55,21 @@ ImageField, so the template tag renders a container element with CSS for the
 correct aspect ratio for the image, and uses CSS to position the element
 within it.
 
-How?
-----
+## Deferred JavaScript loading of high-resolution images
+When a document is first rendered, the lowest-resolution image will be
+displayed first. When the document is loaded, JavaScript will detect if the
+user's screen (actually, the width of the parent element of the image) merits
+switching images to a higher resolution version.
+
+It will also do this when a window is resized (including device rotation). It
+will never switch out a low-resolution image for a high-resolution one.
+
+This was inspired by
+(django-responsive-images)[https://github.com/onespacemedia/django-responsive-images],
+but it is implemented somewhat differently.
+
+# How?
+
 For most uses, just pass any ImageField as an argument to the
 `{% flexible_image %}` template tag.
 
@@ -60,39 +79,71 @@ There are a few arguments you can pass to the tag if required:
 * `classes`: A space-separated list of extra classes to apply to the container
   element. Defaults to empty string.
 * `alt`: [Alt text](https://en.wikipedia.org/wiki/Alt_attribute) for the
-  image.
+  image. Don't specify this if you do not have to.
 
-Don't use `container` or `classes` to style the width of the image's container
-element with CSS; iOS Safari (unlike most others, but correctly) calculates
-`padding-bottom` percentages from the width of the _parent_ element. Wrap your
-`{% flexible_image %}` tag in a container of the desired width instead.
+Don't use the value of `container` or `classes` as selectors for styling the
+width of the image's container element with CSS; while some browsers
+(incorrectly) calculate padding-bottom percentages from the width of the
+element, others (correctly) calculate it from the width of the parent element.
+Wrap your `{% flexible_image %}` tag in a container of the desired width
+instead.
 
-Bonus
------
-The `{% flexible_image_js %}` tag can be placed after all the flexible images
-have been loaded into your site; it'll add a "loading" class to your images
-as they are loading. See `templates/flexible-image-test.html` for a
-demonstration of how this could be useful.
+flexible-images will obey the following settings in your settings.py:
 
-Who?
-----
-This was written by Lewis Collard at [Onespacemedia](http://www.onespacemedia.com/).
+**FLEXIBLE_IMAGES_USE_JS**: if you do not want JavaScript image switching then
+set this to True. This will cause the flexible_image tag to output the image
+you supply it as-is, which reduces this app to "Smarter aspect ratio
+preservation" above.
 
-Compatibility
--------------
+**FLEXIBLE_IMAGE_SIZES**: defines the alternative sizes that flexible-images
+will generate. Example:
+
+```
+FLEXIBLE_IMAGES_SIZES = [
+    {
+        "width": 480,
+    },
+    {
+        "width": 768,
+    },
+    {
+        "width": 1024,
+    },
+    {
+        "width": 1280,
+    },
+    {
+        "width": 1440,
+    },
+]
+```
+
+# Who?
+
+This was written by Lewis Collard at
+[Onespacemedia](http://www.onespacemedia.com/).
+
+# Compatibility
+
 This should work in any recent version of Django. This has been tested with
 1.8, but most earlier versions should work fine.
 
-This works with `ImageField`s, but it also plays nice with
-[sorl-thumbnail](https://sorl-thumbnail.readthedocs.org),
-[easy-thumbnails](https://github.com/SmileyChris/easy-thumbnails), or anything
-else that returns an object with `width` and `height` attributes.
+For image switching, you will want
+[sorl-thumbnail](https://sorl-thumbnail.readthedocs.org).
 
-This works in any sane web browser, desktop and mobile. IE 7 and 8 should
-work, too.
+The client-side code is tested in Chrome, Safari, and Firefox. It probably
+works in Internet Explorer 9 upwards; patches welcome.
 
 It is CSS-framework-agnostic; it'll work with any framework, or no framework.
 
-License
--------
+JavaScript is vanilla JS, so it neither requires nor cares about your
+JavaScript framework.
+
+# To-do
+
+* Investigate sensible default sizes based on the User-Agent header.
+* easy_thumbnails support.
+
+# License
+
 [Public domain](https://creativecommons.org/publicdomain/zero/1.0/).
