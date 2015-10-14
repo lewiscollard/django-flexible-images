@@ -2,7 +2,6 @@
 import os.path
 
 from django.views.generic import TemplateView
-from django.contrib.staticfiles import finders
 from django.core.files.images import ImageFile
 from django.conf import settings
 
