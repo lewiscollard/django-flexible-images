@@ -62,24 +62,8 @@ function flexibleImageSwitcher() {
   }
 }
 
-function flexibleImageDoCookie() {
-  "use strict";
-  if (!document.flexibleImageSetCookie) {
-    return;
-  }
-  var match = document.cookie.match(new RegExp('flexible-images=([^;]+)'));
-  if (!match) {
-      var d = new Date();
-      var width = window.screen.width;
-      d.setTime(d.getTime() + (10*24*60*60*1000));
-      var expires = "expires=" + d.toUTCString();
-      document.cookie = "flexible-images=max-size_" + width.toString();
-  }
-}
-
 if (window.addEventListener) {
   window.addEventListener("DOMContentLoaded", flexibleImageSwitcher);
-  window.addEventListener("DOMContentLoaded", flexibleImageDoCookie);
   window.addEventListener("resize", flexibleImageSwitcher);
 }
 
