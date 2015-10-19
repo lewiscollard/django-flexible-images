@@ -8,10 +8,10 @@ register = template.Library()
 
 
 try:
-    FLEXIBLE_IMAGES_SIZES = settings.FLEXIBLE_IMAGES_SIZES
+    FLEXIBLE_IMAGE_SIZES = settings.FLEXIBLE_IMAGE_SIZES
 except:
     # Image sizes. These MUST be in size order for this to function properly.
-    FLEXIBLE_IMAGES_SIZES = [
+    FLEXIBLE_IMAGE_SIZES = [
         {
             "width": 480,
         },
@@ -65,7 +65,7 @@ def flexible_image(context, src, container="div", classes="", alt=""):
     # out with a larger version in JS if their device merits it.
     first = True
     sizes = []
-    for size in FLEXIBLE_IMAGES_SIZES:
+    for size in FLEXIBLE_IMAGE_SIZES:
         image = get_thumbnail_shim(src, size["width"])
         sizes.append({
             "url": image.url,
