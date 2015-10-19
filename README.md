@@ -105,11 +105,11 @@ set this to False. This will cause the flexible_image tag to output the image
 you supply it as-is, which reduces this app to "Smarter aspect ratio
 preservation" above.
 
-**FLEXIBLE_IMAGES_SIZES**: defines the alternative sizes that flexible-images
+**FLEXIBLE_IMAGE_SIZES**: defines the alternative sizes that flexible-images
 will generate. Example:
 
 ```
-FLEXIBLE_IMAGES_SIZES = [
+FLEXIBLE_IMAGE_SIZES = [
     {
         "width": 480,
     },
