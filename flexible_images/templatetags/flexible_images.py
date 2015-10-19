@@ -12,21 +12,11 @@ try:
 except:
     # Image sizes. These MUST be in size order for this to function properly.
     FLEXIBLE_IMAGES_SIZES = [
-        {
-            "width": 480,
-        },
-        {
-            "width": 768,
-        },
-        {
-            "width": 1024,
-        },
-        {
-            "width": 1280,
-        },
-        {
-            "width": 1440,
-        },
+        480,
+        768,
+        1024,
+        1280,
+        1440,
     ]
 
 
@@ -66,7 +56,8 @@ def flexible_image(context, src, container="div", classes="", alt=""):
     first = True
     sizes = []
     for size in FLEXIBLE_IMAGES_SIZES:
-        image = get_thumbnail_shim(src, size["width"])
+        width = size['width'] if 'width' in size else size
+        image = get_thumbnail_shim(src, width)
         sizes.append({
             "url": image.url,
             "width": image.width,
