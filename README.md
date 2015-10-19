@@ -101,7 +101,7 @@ instead.
 flexible-images will obey the following settings in your settings.py:
 
 **FLEXIBLE_IMAGES_USE_JS**: if you do not want JavaScript image switching then
-set this to True. This will cause the flexible_image tag to output the image
+set this to False. This will cause the flexible_image tag to output the image
 you supply it as-is, which reduces this app to "Smarter aspect ratio
 preservation" above.
 
