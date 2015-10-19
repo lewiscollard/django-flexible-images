@@ -135,20 +135,20 @@ This was written by Lewis Collard at
 
 ## Compatibility and requirements
 
-You will want
-[sorl-thumbnail](https://sorl-thumbnail.readthedocs.org) for image switching
-to work.
+You will need
+[sorl-thumbnail](https://sorl-thumbnail.readthedocs.org).
 
-This should work in any recent version of Django. This has been tested with
-1.8, but most earlier versions should work fine.
+This should work with any recent version of Django. This has been tested with
+1.8, but any earlier version should work fine.
 
 The client-side code is tested in Chrome, Safari (iOS and OS X), and Firefox.
-It probably works in Internet Explorer 9 upwards; patches welcome.
+It probably works in Internet Explorer 9 upwards and almost certainly in
+Android; patches welcome.
 
 It is CSS-framework-agnostic; it'll work with any framework, or no framework.
 
-JavaScript is vanilla JS, so it neither requires nor cares about your
-JavaScript framework.
+The JavaScript is vanilla JS, so it neither requires a CSS framework nor cares
+about the one you are using.
 
 ## To-do
 
