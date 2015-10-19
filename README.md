@@ -16,6 +16,31 @@ ImageFile gets upset if you try to open a file outside of it.)
 
 ## What does it do?
 
+### `srcset`, for browsers that fully support it.
+
+Right now, current Chrome and Firefox have full support for the `srcset`
+attribute. This allows the server to specify a list of image sizes that it
+has available and for the client to pick the most appropriate one.
+
+### Deferred JavaScript image switching, for browsers that don't.
+
+Some browsers don't support `srcset`. Others do, but don't support it well
+(they only support pixel density queries). Both cases should be reliably
+detected.
+
+For browsers that do not fully support `srcset`, the lowest-resolution image
+will be displayed first. When the document is loaded, JavaScript will detect
+if the user's screen (actually, the width of the parent element of the image)
+merits switching images to a higher resolution version.
+
+It will also do this when a window is resized (including device rotation). It
+will never switch out a low-resolution image for a high-resolution one.
+
+This was inspired by
+(django-responsive-images)[https://github.com/onespacemedia/django-responsive-images],
+but it is implemented somewhat differently.
+
+
 ### Smarter aspect ratio preservation
 
 I consider this the most important feature, in that it drastically reduces
@@ -50,24 +75,8 @@ From there, if we absolutely position an image to the top left of that and
 set both width and height to 100%, it will fill that container, and it will
 preserve its aspect ratio at any screen size.
 
-The rest is trivial; this README and the test HTML file is nearly an order of
-magnitude larger than the code. We know the width and height of a file in an
-ImageField, so the template tag renders a container element with CSS for the
-correct aspect ratio for the image, and uses CSS to position the element
-within it.
-
-### Deferred JavaScript loading of high-resolution images
-When a document is first rendered, the lowest-resolution image will be
-displayed first. When the document is loaded, JavaScript will detect if the
-user's screen (actually, the width of the parent element of the image) merits
-switching images to a higher resolution version.
-
-It will also do this when a window is resized (including device rotation). It
-will never switch out a low-resolution image for a high-resolution one.
-
-This was inspired by
-[django-responsive-images](https://github.com/onespacemedia/django-responsive-images),
-but it is implemented somewhat differently.
+The code for this is trivial; if you're only interested in this part I would
+suggest ripping it out for use in your own projects.
 
 ## How?
 
@@ -133,8 +142,8 @@ to work.
 This should work in any recent version of Django. This has been tested with
 1.8, but most earlier versions should work fine.
 
-The client-side code is tested in Chrome, Safari, and Firefox. It probably
-works in Internet Explorer 9 upwards; patches welcome.
+The client-side code is tested in Chrome, Safari (iOS and OS X), and Firefox.
+It probably works in Internet Explorer 9 upwards; patches welcome.
 
 It is CSS-framework-agnostic; it'll work with any framework, or no framework.
 

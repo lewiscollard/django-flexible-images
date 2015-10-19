@@ -1,5 +1,6 @@
 <{{ container }} class="flexible-image {{ classes }}" style="position: relative; height: 0; padding-bottom: {{  aspect_padding_bottom }}%">
 <img src="{{ image.url }}"
+    srcset="{% for size in image_sizes %}{{ size.url }} {{size.width}}w{% if not forloop.last %}, {% endif %}{% endfor %}"
     alt="{{ alt }}"
     class="flexible-image-image"
     style="position: absolute; height: 100%; width: 100%;"

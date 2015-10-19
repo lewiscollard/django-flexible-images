@@ -37,6 +37,7 @@ function doSwitch(elem) {
   // Switcheroo.
   newImage = new Image();
   newImage.onload = function () {
+    elem.removeAttribute("srcsset");
     elem.src = useThis.url;
     elem.setAttribute("data-native-size", elem.width);
   };
@@ -56,12 +57,35 @@ function flexibleImageSwitcher() {
 
   var i, elem;
   for (i = 0; i < elems.length; i += 1) {
+    // Safari (and perhaps others) try to parse the srcset attribute in a
+    // bad way, and won't let you
     elem = elems[i];
+    // Unset for old Safari (and maybe others) with incomplete srcset support.
+    // They will attempt to parse it, but will think that they want the
+    // low resolution version, and it'll stay that way because `srcset` takes
+    // precedence over `src`.
+    elem.removeAttribute("srcset");
     doSwitch(elem);
   }
 }
 
-if (window.addEventListener) {
+(function () {
+  // Don't bother with any of the JS switching stuff if proper srcset support
+  // is present.
+  // Edge 12, Safari 8, iOS Safari 8.4 and Android browser <= 44 implement one
+  // which doesn't support width queries (only pixel-density ones).
+  // Fortunately, they don't support the `sizes` attribute either. As far as
+  // I know, all devices that support `srcset` in full also support `sizes`.
+  var img = document.createElement("img");
+  if (("srcset" in img) && ("sizes" in img)) {
+    return;
+  }
+
+  // Sorry, prehistory.
+  if (!window.addEventListener) {
+    return;
+  }
+
   var resizeTimeout = null;
   window.addEventListener("DOMContentLoaded", flexibleImageSwitcher);
   window.addEventListener("resize", function() {
@@ -73,4 +97,4 @@ if (window.addEventListener) {
     }
     resizeTimeout = window.setTimeout(flexibleImageSwitcher, 500);
   });
-}
+})();
