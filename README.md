@@ -133,6 +133,8 @@ FLEXIBLE_IMAGE_SIZES = [
 This was written by Lewis Collard at
 [Onespacemedia](http://www.onespacemedia.com/).
 
+[Daniel Samuels](http://danielsamuels.co.uk/) provided valuable guidance to get this to 0.1.  
+
 ## Compatibility and requirements
 
 You will need
