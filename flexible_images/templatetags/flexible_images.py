@@ -75,7 +75,8 @@ def flexible_image(context, src, container="div", classes="", alt=""):
         if first:
             rv["image"] = image
             first = False
-    rv["image_sizes"] = json.dumps(sizes)
+    rv["image_sizes"] = sizes
+    rv["image_sizes_json"] = json.dumps(sizes)
     return rv
 
 
