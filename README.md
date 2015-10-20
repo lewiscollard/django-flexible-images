@@ -14,6 +14,7 @@ view class in `views.py` and sample 3:2 (ish) images as
 `static/responsive-test-image-2.jpg`. (Copy these to your MEDIA_ROOT;
 ImageFile gets upset if you try to open a file outside of it.)
 
+
 ## What does it do?
 
 ### `srcset`, for browsers that fully support it.
@@ -119,6 +120,7 @@ FLEXIBLE_IMAGE_SIZES = [
 ]
 ```
 
+
 ## Who?
 
 This was written by Lewis Collard at
@@ -126,28 +128,38 @@ This was written by Lewis Collard at
 
 [Daniel Samuels](http://danielsamuels.co.uk/) provided valuable guidance to get this to 0.1.
 
+
 ## Compatibility and requirements
 
 You will need
 [sorl-thumbnail](https://sorl-thumbnail.readthedocs.org) for `srcset`
 (and the JavaScript switcher fallback) to work.
 
-This should work with any recent version of Django. This has been tested with
-1.8, but any earlier version should work fine.
-
-The client-side code is tested in Chrome, Safari (iOS and OS X), and Firefox.
-It probably works in Internet Explorer 9 upwards and almost certainly in
-Android; patches welcome.
-
 It is CSS-framework-agnostic; it'll work with any framework, or no framework.
 
 The JavaScript is vanilla JS, so it neither requires a CSS framework nor cares
 about the one you are using.
 
+This should work with any recent version of Django. This has been tested with
+1.8, but any earlier version should work fine.
+
+## Browser support
+This has been tested on several browsers:
+
+* Internet Explorer 9+
+* Chrome (any semi-recent version)
+* Firefox (any semi-recent version)
+* Safari 8 (OS X)
+* iOS 8.1
+
+Android should work fine as well (minimally tested), as will any semi-recent
+WebKit-based browser.
+
+
 ## To-do
 
-* Investigate sensible default sizes based on the User-Agent header.
 * easy_thumbnails support.
+
 
 ## License
 
