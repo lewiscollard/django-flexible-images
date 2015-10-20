@@ -39,8 +39,7 @@ def flexible_image(context, src, container="div", classes="", alt=""):
     first = True
     sizes = []
     for size in FLEXIBLE_IMAGE_SIZES:
-        width = size['width'] if 'width' in size else size
-        image = get_thumbnail_shim(src, width)
+        image = get_thumbnail_shim(src, size)
         sizes.append({
             "url": image.url,
             "width": image.width,
