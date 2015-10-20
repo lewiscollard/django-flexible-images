@@ -10,7 +10,7 @@ register = template.Library()
 try:
     FLEXIBLE_IMAGE_SIZES = settings.FLEXIBLE_IMAGE_SIZES
 except:
-    # Image sizes. These MUST be in size order for this to function properly.
+    # Image sizes. These should be in size order, smallest first.
     FLEXIBLE_IMAGE_SIZES = [
         480,
         768,
@@ -29,8 +29,8 @@ def flexible_image(context, src, container="div", classes="", alt=""):
         "alt": alt,
     }
 
-    # We can't do any of the JS stuff if we don't have a thumbnail
-    # library installed.
+    # We can't do any of the srcset (or JS switching fallback) if we don't
+    # have a thumbnail library installed.
     if not HAS_THUMBNAILER:
         rv["image"] = src
         return rv

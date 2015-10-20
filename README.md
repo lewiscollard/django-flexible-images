@@ -98,33 +98,18 @@ element, others (correctly) calculate it from the width of the parent element.
 Wrap your `{% flexible_image %}` tag in a container of the desired width
 instead.
 
-flexible-images will obey the following settings in your settings.py:
-
-**FLEXIBLE_IMAGES_USE_JS**: if you do not want JavaScript image switching then
-set this to False. This will cause the flexible_image tag to output the image
-you supply it as-is, which reduces this app to "Smarter aspect ratio
-preservation" above.
-
-**FLEXIBLE_IMAGE_SIZES**: defines the alternative sizes that flexible-images
-will generate. Example:
+flexible-image has one setting in your settings.py: **FLEXIBLE_IMAGE_SIZES**
+defines the sizes that flexible-images will generate, as a list of image
+widths in pixels, in ascending size order. This is optional, and the defaults
+are as follows:
 
 ```
 FLEXIBLE_IMAGE_SIZES = [
-    {
-        "width": 480,
-    },
-    {
-        "width": 768,
-    },
-    {
-        "width": 1024,
-    },
-    {
-        "width": 1280,
-    },
-    {
-        "width": 1440,
-    },
+  480,
+  768,
+  1024,
+  1280,
+  1440,
 ]
 ```
 
