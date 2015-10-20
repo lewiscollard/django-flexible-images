@@ -6,44 +6,7 @@
     body>div {
         margin-bottom: 1em;
     }
-
-    .flexible-image-loading {
-        box-shadow: inset 0 0 1px #aaaaaa;
-        background-color: #eeeeee;
-    }
-
-    .flexible-image-loading:before {
-        display: block;
-        position: absolute;
-        height: 50px;
-        line-height: 50px;
-        top: 50%;
-        left: 50%;
-        width: 150px;
-        margin-left: -50px;
-        margin-top: -30px;
-        font-size: 20px;
-        text-align: center;
-        content: "Loading...";
-        border-radius: 2%;
-        background-color: #333333;
-        color: #dddddd;
-        opacity: 0.5;
-    }
-
-    .flexible-image-loading img {
-        opacity: 0;
-        visibility: hidden;
-    }
-
-    .flexible-image-loaded img {
-        visibility: visible;
-        transition-delay: 1s;
-        opacity: 1;
-        transition: all 1s;
-    }
     </style>
-    <script src="https://code.jquery.com/jquery-1.11.2.js"></script>
     <script src="/static/flexible-images/flexible-images.js"></script>
 </head>
 <body>
