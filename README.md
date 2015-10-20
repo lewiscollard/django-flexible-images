@@ -89,7 +89,9 @@ There are a few arguments you can pass to the tag if required:
 * `classes`: A space-separated list of extra classes to apply to the container
   element. Defaults to empty string.
 * `alt`: [Alt text](https://en.wikipedia.org/wiki/Alt_attribute) for the
-  image. Don't specify this if you do not have to.
+  image. For purely decorative images, this should be an empty string (the
+  default). For images that convey information that can be textually described,
+  this should be present.
 
 Don't use the value of `container` or `classes` as selectors for styling the
 width of the image's container element with CSS; while some browsers
