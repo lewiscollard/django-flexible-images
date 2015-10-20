@@ -1,11 +1,11 @@
 <{{ container }} class="flexible-image {{ classes }}" style="position: relative; height: 0; padding-bottom: {{  aspect_padding_bottom }}%">
 <img src="{{ image.url }}"
-    srcset="{% for size in image_sizes %}{{ size.url }} {{size.width}}w{% if not forloop.last %}, {% endif %}{% endfor %}"
+    {% if image_sizes %}srcset="{% for size in image_sizes %}{{ size.url }} {{size.width}}w{% if not forloop.last %}, {% endif %}{% endfor %}"{% endif %}
     alt="{{ alt }}"
     class="flexible-image-image"
     style="position: absolute; height: 100%; width: 100%;"
     id="{{ uuid }}"
-    data-sizes="{{ image_sizes_json }}"
+    {% if image_sizes_json %}data-sizes="{{ image_sizes_json }}"{% endif %}
     data-native-size="{{ image.width }}" />
 
 </{{ container }}>

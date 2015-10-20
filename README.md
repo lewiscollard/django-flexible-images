@@ -133,12 +133,13 @@ FLEXIBLE_IMAGE_SIZES = [
 This was written by Lewis Collard at
 [Onespacemedia](http://www.onespacemedia.com/).
 
-[Daniel Samuels](http://danielsamuels.co.uk/) provided valuable guidance to get this to 0.1.  
+[Daniel Samuels](http://danielsamuels.co.uk/) provided valuable guidance to get this to 0.1.
 
 ## Compatibility and requirements
 
 You will need
-[sorl-thumbnail](https://sorl-thumbnail.readthedocs.org).
+[sorl-thumbnail](https://sorl-thumbnail.readthedocs.org) for `srcset`
+(and the JavaScript switcher fallback) to work.
 
 This should work with any recent version of Django. This has been tested with
 1.8, but any earlier version should work fine.

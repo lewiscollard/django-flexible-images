@@ -22,33 +22,16 @@ except:
 
 @register.inclusion_tag("flexible-images/flexible-image.html", takes_context=True)
 def flexible_image(context, src, container="div", classes="", alt=""):
-    try:
-        use_js = settings.FLEXIBLE_IMAGES_USE_JS
-    except:
-        # Default to True.
-        use_js = True
-
     rv = {
         "container": container,
         "classes": classes,
         "aspect_padding_bottom": aspect_ratio_percent(src),
         "alt": alt,
-        "use_js": use_js,
     }
 
-    serve_now = False
-
-    # Don't do any image swapping out and just serve the full-resolution
-    # image if FLEXIBLE_IMAGES_USE_JS is not set.
-    if not use_js:
-        serve_now = True
-
-    # And we can't do any of the JS stuff if we don't have a thumbnail
+    # We can't do any of the JS stuff if we don't have a thumbnail
     # library installed.
-    elif not HAS_THUMBNAILER:
-        serve_now = True
-
-    if serve_now:
+    if not HAS_THUMBNAILER:
         rv["image"] = src
         return rv
     # Serve up the first image (which should be the smallest), then swap it
