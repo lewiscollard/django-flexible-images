@@ -92,6 +92,10 @@ There are a few arguments you can pass to the tag if required:
   image. For purely decorative images, this should be an empty string (the
   default). For images that convey information that can be textually described,
   this should be present.
+* `background_image`: Set this to True to set the image as a CSS
+  `background-image` on an empty &lt;div&gt;. Note that if this is set,
+  JavaScript image switching will be in effect as there is not an equivalent
+  of `srcset` for CSS background images.
 
 Don't use the value of `container` or `classes` as selectors for styling the
 width of the image's container element with CSS; while some browsers

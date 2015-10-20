@@ -2,6 +2,16 @@ function doSwitch(elem) {
   "use strict";
   var sizes, newImage, containerWidth, useThis, j;
   var nativeSize = parseInt(elem.getAttribute("data-native-size"), 10);
+  var usingBackgroundImage = false;
+  if (elem.tagName.toLowerCase() !== "img") {
+    usingBackgroundImage = true;
+  }
+
+  if (!usingBackgroundImage && document.supportsSrcSet) {
+    // Don't do anything, it's an <img> tag and the browser properly supports
+    // srcset.
+    return;
+  }
 
   var sizeAttr = elem.getAttribute("data-sizes");
   if (!sizeAttr) {
@@ -22,14 +32,27 @@ function doSwitch(elem) {
     }
   }
 
+  var currentsrc, bgimage;
+  if (!usingBackgroundImage) {
+    currentsrc = elem.getAttribute("src");
+  } else {
+    bgimage = elem.style.backgroundImage;
+    if (!bgimage) {
+      // ?
+      return;
+    }
+    currentsrc = bgimage.substr(4, bgimage.length - 5);
+
+  }
+
   // Obviously, no point in switching for the same image.
-  if (useThis.url === elem.getAttribute("src")) {
+  if (useThis.url === currentsrc) {
    return;
   }
 
   // And don't switch out a high-res image for a low-res one! There are
   // circumstances in which this would otherwise happen, like when scaling
-  // down a window (or resizing a tablet.)
+  // down a window (or rotating a tablet).
   if (useThis.width < nativeSize) {
     return;
   }
@@ -38,8 +61,12 @@ function doSwitch(elem) {
   newImage = new Image();
   newImage.onload = function () {
     elem.removeAttribute("srcsset");
-    elem.src = useThis.url;
-    elem.setAttribute("data-native-size", elem.width);
+    elem.setAttribute("data-native-size", newImage.width);
+    if (usingBackgroundImage) {
+      elem.style.backgroundImage = 'url(' + useThis.url + ')';
+    } else {
+      elem.src = useThis.url;
+    }
   };
   newImage.src = useThis.url;
 }
@@ -64,7 +91,9 @@ function flexibleImageSwitcher() {
     // They will attempt to parse it, but will think that they want the
     // low resolution version, and it'll stay that way because `srcset` takes
     // precedence over `src`.
-    elem.removeAttribute("srcset");
+    if (!document.supportsSrcSet) {
+      elem.removeAttribute("srcset");
+    }
     doSwitch(elem);
   }
 }
@@ -78,7 +107,9 @@ function flexibleImageSwitcher() {
   // I know, all devices that support `srcset` in full also support `sizes`.
   var img = document.createElement("img");
   if (("srcset" in img) && ("sizes" in img)) {
-    return;
+    document.supportsSrcSet = true;
+  } else {
+    document.supportsSrcSet = false;
   }
 
   // Sorry, prehistory.

@@ -21,12 +21,13 @@ except:
 
 
 @register.inclusion_tag("flexible-images/flexible-image.html", takes_context=True)
-def flexible_image(context, src, container="div", classes="", alt=""):
+def flexible_image(context, src, container="div", classes="", alt="", background_image=False):
     rv = {
         "container": container,
         "classes": classes,
         "aspect_padding_bottom": aspect_ratio_percent(src),
         "alt": alt,
+        "background_image": background_image,
     }
 
     # We can't do any of the srcset (or JS switching fallback) if we don't
@@ -34,8 +35,11 @@ def flexible_image(context, src, container="div", classes="", alt=""):
     if not HAS_THUMBNAILER:
         rv["image"] = src
         return rv
-    # Serve up the first image (which should be the smallest), then swap it
-    # out with a larger version in JS if their device merits it.
+    # For browsers that support srcset: Give them all the sizes and let the
+    # browser decide what to use.
+    # For ones that do not: Serve up the first image (which should be the
+    # smallest), then swap it out with a larger version in JS if their device
+    # merits it.
     first = True
     sizes = []
     for size in FLEXIBLE_IMAGE_SIZES:

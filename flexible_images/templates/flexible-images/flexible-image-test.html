@@ -1,4 +1,4 @@
-{% load flexible_images %}<!doctype html>
+{% load flexible_images %}<!DOCTYPE html>
 <html>
 <head>
     <title>Responsive image test</title>
@@ -59,6 +59,10 @@
     <div style="width: 49%; float: left; margin-left: 1%;">
         {% flexible_image image_1 container="section" alt="I am on the right" %}
     </div>
+
+    <p>Background image:</p>
+
+    {% flexible_image image_1 container="section" background_image=True %}
 
     <p style="clear: both;">
         Three-up:
