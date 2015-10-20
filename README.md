@@ -137,8 +137,8 @@ You will need
 
 It is CSS-framework-agnostic; it'll work with any framework, or no framework.
 
-The JavaScript is vanilla JS, so it neither requires a CSS framework nor cares
-about the one you are using.
+The JavaScript is [vanilla JS](http://vanilla-js.com/), so it neither requires
+a JavaScript framework, nor cares about the one you are using.
 
 This should work with any recent version of Django. This has been tested with
 1.8, but any earlier version should work fine.
