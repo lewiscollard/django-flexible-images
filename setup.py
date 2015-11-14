@@ -22,4 +22,8 @@ setup(
         'Programming Language :: Python :: 2.7',
         'License :: CC0 1.0 Universal (CC0 1.0) Public Domain Dedication',
     ],
+    install_requires=[
+        'django',
+        'sorl-thumbnail'
+    ]
 )
