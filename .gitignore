@@ -1,2 +1,3 @@
 .DS_Store
 *.pyc
+django_flexible_images.egg-info
