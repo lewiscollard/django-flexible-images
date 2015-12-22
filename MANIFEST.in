@@ -1,0 +1,2 @@
+recursive-include flexible_images/static *
+recursive-include flexible_images/templates *
