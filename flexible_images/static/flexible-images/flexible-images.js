@@ -99,6 +99,7 @@ function flexibleImageSwitcher() {
 }
 
 (function () {
+  "use strict";
   // Don't bother with any of the JS switching stuff if proper srcset support
   // is present.
   // Edge 12, Safari 8, iOS Safari 8.4 and Android browser <= 44 implement one
