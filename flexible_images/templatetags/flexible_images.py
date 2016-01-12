@@ -55,11 +55,3 @@ def flexible_image(context, src, container="div", classes="", alt="", background
     rv["image_sizes"] = sizes
     rv["image_sizes_json"] = json.dumps(sizes)
     return rv
-
-
-@register.inclusion_tag("flexible-images/images-loading.html")
-def flexible_image_js(selector=".flexible-image"):
-    ctx = {
-        "selector": selector,
-    }
-    return ctx
