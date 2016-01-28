@@ -82,6 +82,7 @@
         if (!JSON) {
             return;
         }
+
         var elems = document.getElementsByClassName("flexible-image-image");
         if (!elems.length) {
             return;
@@ -119,7 +120,16 @@
     }
 
     var resizeTimeout = null;
-    window.addEventListener("DOMContentLoaded", flexibleImageSwitcher);
+
+    // If the DOMContentLoaded event has already happened, then run
+    // flexibleImageSwitcher immediately. This allows flexible-images.js to
+    // be loaded asynchronously.
+    if (document.readyState === "complete" || document.readyState === "interactive") {
+        flexibleImageSwitcher();
+    } else {
+        window.addEventListener("DOMContentLoaded", flexibleImageSwitcher);
+    }
+
     window.addEventListener("resize", function () {
         // Avoid storms of events being fired during resize by doing it once,
         // 500ms after the last resize.
