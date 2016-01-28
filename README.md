@@ -35,7 +35,7 @@ if the user's screen (actually, the width of the parent element of the image)
 merits switching images to a higher resolution version.
 
 It will also do this when a window is resized (including device rotation). It
-will never switch out a low-resolution image for a high-resolution one.
+will never replace a higher-resolution image with a lower-resolution one.
 
 This was inspired by
 [django-responsive-images](https://github.com/onespacemedia/django-responsive-images),
