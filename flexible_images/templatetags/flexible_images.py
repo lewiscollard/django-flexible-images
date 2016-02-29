@@ -42,8 +42,21 @@ def flexible_image(context, src, container="div", classes="", alt="", background
     # merits it.
     first = True
     sizes = []
+
+    # It is possible to have the same width appear more than once, if
+    # THUMBNAIL_UPSCALE is set to False and the image's width is less than the
+    # largest value in FLEXIBLE_IMAGE_SIZES. So keep track of widths and
+    # don't output more than one image with the same width (which would result
+    # in an invalid `srcset` attribute).
+    seen_widths = []
+
     for size in FLEXIBLE_IMAGE_SIZES:
         image = get_thumbnail_shim(src, size)
+
+        if image.width in seen_widths:
+            continue
+        seen_widths.append(image.width)
+
         sizes.append({
             "url": image.url,
             "width": image.width,
