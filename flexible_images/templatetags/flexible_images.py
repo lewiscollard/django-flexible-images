@@ -21,13 +21,16 @@ except:
 
 
 @register.inclusion_tag("flexible-images/flexible-image.html", takes_context=True)
-def flexible_image(context, src, container="div", classes="", alt="", background_image=False):
+def flexible_image(context, src, container="div", classes="", inner_classes="", alt="", background_image=False, no_css=False, aria_hidden=False):
     rv = {
         "container": container,
         "classes": classes,
         "aspect_padding_bottom": aspect_ratio_percent(src),
         "alt": alt,
         "background_image": background_image,
+        "no_css": no_css,
+        "inner_classes": inner_classes,
+        "aria_hidden": aria_hidden,
     }
 
     # We can't do any of the srcset (or JS switching fallback) if we don't

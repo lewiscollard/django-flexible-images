@@ -4,7 +4,7 @@ from setuptools import find_packages, setup
 
 setup(
     name="django-flexible-images",
-    version="1.0.5",
+    version="1.0.6",
     url="https://github.com/lewiscollard/django-flexible-images",
     author="Lewis Collard",
     author_email="lewis.collard@onespacemedia.com",

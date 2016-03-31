@@ -79,6 +79,9 @@ preserve its aspect ratio at any screen size.
 The code for this is trivial; if you're only interested in this part I would
 suggest ripping it out for use in your own projects.
 
+If you want to take care of padding and sizing yourself, pass
+`no_css=True` to the template tag.
+
 ## How?
 
 For most uses, just pass any ImageField as an argument to the
@@ -87,8 +90,15 @@ For most uses, just pass any ImageField as an argument to the
 There are a few arguments you can pass to the tag if required:
 
 * `container`: The HTML tag in which to wrap the image. Defaults to `div`.
+* `no_css`: Disables adding inline CSS. Use this if you're taking care of
+  sizing the image yourself. Defaults to `False`. Note that if you're doing
+  this and you do not have `sorl-thumbnail` installed, `{% flexible_image %}`
+  is effectively a no-op!
 * `classes`: A space-separated list of extra classes to apply to the container
   element. Defaults to empty string.
+* `inner_classes`: A space-separated list of exta classes to apply to the
+  image itself (which is wrapped in the container to which `classes` is
+  applied). Defaults to empty string.
 * `alt`: [Alt text](https://en.wikipedia.org/wiki/Alt_attribute) for the
   image. For purely decorative images, this should be an empty string (the
   default). For images that convey information that can be textually described,
@@ -97,6 +107,9 @@ There are a few arguments you can pass to the tag if required:
   `background-image` on an empty &lt;div&gt;. Note that if this is set,
   JavaScript image switching will be in effect as there is not an equivalent
   of `srcset` for CSS background images.
+* 'aria_hidden': Set to True if you wish to set the `aria-hidden` attribute
+  on the container. Use this for purely decorative images. Defaults to
+  `False`.
 
 Don't use the value of `container` or `classes` as selectors for styling the
 width of the image's container element with CSS; while some browsers

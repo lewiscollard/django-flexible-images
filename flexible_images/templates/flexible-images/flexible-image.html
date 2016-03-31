@@ -1,7 +1,7 @@
-<{{ container }} class="flexible-image {{ classes }}" style="position: relative; height: 0; padding-bottom: {{  aspect_padding_bottom }}%">
+<{{ container }} class="flexible-image {{ classes }}" style="{% if not no_css %}position: relative; height: 0; padding-bottom: {{  aspect_padding_bottom }}%{% endif %}"{% if aria_hidden %} aria-hidden="true"{% endif %}>
 {% if background_image %}
-    <div class="flexible-image-image"
-        style="position: absolute; height: 100%; width: 100%; background-image: url({{ image.url }}); background-size: cover;"
+    <div class="flexible-image-image {% if inner_classes %}{{ inner_classes }}{% endif %}"
+        style="{% if not no_css %}background-size: cover; position: absolute; height: 100%; width: 100%;{% endif %} background-image: url({{ image.url }});"
         data-native-size="{{ image.width }}"
         {% if image_sizes_json %}data-sizes="{{ image_sizes_json }}"{% endif %}>
     </div>
@@ -9,8 +9,8 @@
 <img src="{{ image.url }}"
     {% if image_sizes %}srcset="{% for size in image_sizes %}{{ size.url }} {{size.width}}w{% if not forloop.last %}, {% endif %}{% endfor %}"{% endif %}
     alt="{{ alt }}"
-    class="flexible-image-image"
-    style="position: absolute; height: 100%; width: 100%;"
+    class="flexible-image-image {% if inner_classes %}{{ inner_classes }}{% endif %}"
+    style="{% if not no_css %}position: absolute; height: 100%; width: 100%;{% endif %}"
     {% if image_sizes_json %}data-sizes="{{ image_sizes_json }}"{% endif %}
     data-native-size="{{ image.width }}" />
 {% endif %}

@@ -6,6 +6,16 @@
     body>div {
         margin-bottom: 1em;
     }
+
+    .test-no-css {
+        height: 200px;
+        background-size: cover;
+    }
+
+    .test-no-css-inner {
+        height: 200px;
+        background-size: 20%;
+    }
     </style>
     <script src="/static/flexible-images/flexible-images.js"></script>
 </head>
@@ -45,6 +55,16 @@
     </div>
 
     <p style="clear: both">Hooray!</p>
+
+    <p>Testing the 'no_css' option, with <tt>classes</tt> and
+    <tt>inner_classes</tt>:</p>
+
+    {% flexible_image image_2 background_image=True no_css=True classes="test-no-css" inner_classes="test-no-css-inner" %}
+
+    <p>Testing <tt>aria_hidden</tt>:</p>
+
+    {% flexible_image image_1 alt="I am a full-width responsive image!" aria_hidden=True %}
+
 
 </body>
 </html>
