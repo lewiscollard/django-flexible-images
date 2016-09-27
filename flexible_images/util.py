@@ -4,21 +4,27 @@ import json
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
 
-try:
-    FLEXIBLE_IMAGE_SIZES = settings.FLEXIBLE_IMAGE_SIZES
-except AttributeError:
-    # Image sizes. These should be in size order, smallest first.
-    FLEXIBLE_IMAGE_SIZES = [
-        480,
-        768,
-        1024,
-        1280,
-        1440,
-    ]
-
 
 class FlexibleImageError(ImproperlyConfigured):
     pass
+
+
+def possible_engines():
+    # Mostly a helper to aid with testing.
+    return ["sorl", None]
+
+
+def settings_sizes():
+    sizes = getattr(settings, "FLEXIBLE_IMAGE_SIZES", None)
+    if sizes is None:
+        sizes = [
+            480,
+            768,
+            1024,
+            1280,
+            1440,
+        ]
+    return sizes
 
 
 def aspect_ratio(image):
@@ -32,7 +38,7 @@ def aspect_ratio_percent(image):
 def get_thumbnail_engine():
     engine = getattr(settings, "FLEXIBLE_IMAGE_ENGINE", "sorl")
 
-    if not engine in [None, "sorl"]:
+    if not engine in possible_engines():
         raise FlexibleImageError("FLEXIBLE_IMAGE_ENGINE must be one of: 'sorl', None")
 
     return engine
@@ -76,7 +82,7 @@ def get_image_sizes(image):
     sizes = []
     seen_widths = []
 
-    for size in FLEXIBLE_IMAGE_SIZES:
+    for size in settings_sizes():
         img = get_thumbnail_shim(image, size)
 
         if img.width in seen_widths:
@@ -116,10 +122,7 @@ def get_template_context(src, container="div", classes="", inner_classes="", alt
 
     # Set the first image in the list as the one to be rendered initially
     # (pre-JS-fallback). `if sizes` might not be a necessary check...
-    if sizes:
-        context["image"] = sizes[0]
-    else:
-        context["image"] = src
+    context["image"] = sizes[0]
 
     context["image_sizes_json"] = json.dumps(sizes)
     return context
