@@ -65,6 +65,11 @@
 
     {% flexible_image image_1 alt="I am a full-width responsive image!" aria_hidden=True %}
 
+    <p>And if you want to use your own implementation, here's what
+    {% verbatim %}{% flexible_image_list %}{% endverbatim %} does! This is
+    a representation of the dictionary it returns, and not a JSON string.</p>
 
+    {% flexible_image_list image_1 as image_list %}
+    <textarea style="width: 100%; font-size: 18px; font-family: monospace; height: 300px;">{{ image_list }}</textarea>
 </body>
 </html>

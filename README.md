@@ -19,9 +19,10 @@ ImageFile gets upset if you try to open a file outside of it.)
 
 ### `srcset`, for browsers that fully support it.
 
-Right now, current Chrome and Firefox have full support for the `srcset`
-attribute. This allows the server to specify a list of image sizes that it
-has available and for the client to pick the most appropriate one.
+Right now, current Chrome, Edge, Firefox and iOS Safari have full support for
+the `srcset` attribute. This allows a page to specify a list of image
+sizes that it has available and for the client to pick the most appropriate
+one.
 
 ### Deferred JavaScript image switching, for browsers that don't.
 
@@ -118,10 +119,41 @@ element, others (correctly) calculate it from the width of the parent element.
 Wrap your `{% flexible_image %}` tag in a container of the desired width
 instead.
 
-flexible-image has one setting in your settings.py: **FLEXIBLE_IMAGE_SIZES**
-defines the sizes that flexible-images will generate, as a list of image
-widths in pixels, in ascending size order. This is optional, and the defaults
-are as follows:
+## The less opinionated version
+
+If you don't like the default HTML implementation, or it does not work for
+your situation, try using the `{% flexible_image_list %}` assignment tag. It
+takes an ImageField as its only argument and returns a dictionary of this form
+this from which you can build your own implementation:
+
+```
+[
+  {
+    'url': u'/media/cache/7b/6d/7b6dc5274f17a909387b94371f033953.jpg',
+    'width': 480,
+    'height': 318
+  },
+  {
+    'url': u'/media/cache/97/8d/978d13a6ba734e970e42fe9e7415ca40.jpg',
+    'width': 768,
+    'height': 509,
+  },
+  [...]
+]
+```
+
+
+## Settings
+
+flexible-images has two settings for your settings.py.
+
+**FLEXIBLE_IMAGE_ENGINE** can be set to `'sorl'` or to `None`. It defaults to
+`'sorl'` if you have not set it. `None` means that you will only get the
+aspect ratio padding mentioned above, not `srcset` and its JS fallback.
+
+**FLEXIBLE_IMAGE_SIZES** defines the sizes that flexible-images will generate,
+as a list of image widths in pixels, in ascending size order. This is
+optional, and the defaults are as follows:
 
 ```
 FLEXIBLE_IMAGE_SIZES = [
@@ -139,7 +171,7 @@ FLEXIBLE_IMAGE_SIZES = [
 This was written by Lewis Collard at
 [Onespacemedia](http://www.onespacemedia.com/).
 
-[Daniel Samuels](http://danielsamuels.co.uk/) provided valuable guidance to get this to 0.1.
+[Daniel Samuels](http://danielsamuels.co.uk/) provided valuable guidance to get this to 1.0.
 
 
 ## Compatibility and requirements
@@ -172,7 +204,7 @@ WebKit-based browser.
 ## To-do
 
 * easy_thumbnails support.
-
+* jinja2 support.
 
 ## License
 
