@@ -7,7 +7,7 @@
     </div>
 {% else %}
 <img src="{{ image.url }}"
-    {% if image_sizes %}srcset="{% for size in image_sizes %}{{ size.url }} {{size.width}}w{% if not forloop.last %}, {% endif %}{% endfor %}"{% endif %}
+    {% if image_sizes_srcset %}srcset="{{ image_sizes_srcset }}"{% endif %}
     alt="{{ alt }}"
     class="flexible-image-image {% if inner_classes %}{{ inner_classes }}{% endif %}"
     style="{% if not no_css %}position: absolute; height: 100%; width: 100%;{% endif %}"

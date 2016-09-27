@@ -117,6 +117,7 @@ def get_template_context(src, container="div", classes="", inner_classes="", alt
     if not get_thumbnail_engine():
         context["image"] = src
         return context
+
     sizes = get_image_sizes(src)
     context["image_sizes"] = sizes
 
@@ -125,4 +126,7 @@ def get_template_context(src, container="div", classes="", inner_classes="", alt
     context["image"] = sizes[0]
 
     context["image_sizes_json"] = json.dumps(sizes)
+    srcset_items = ["{} {}w".format(size["url"], size["width"]) for size in sizes]
+
+    context["image_sizes_srcset"] = ", ".join(srcset_items)
     return context

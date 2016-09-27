@@ -7,11 +7,11 @@ register = template.Library()
 
 
 @register.inclusion_tag("flexible-images/flexible-image.html")
-def flexible_image(*args, **kwargs):
+def flexible_image(image, *args, **kwargs):
     """The flexible_image template tag. This is a thin wrapper around
     get_template_context in util.py - see that file or the documentation for
     parameters. """
-    return get_template_context(*args, **kwargs)
+    return get_template_context(image, *args, **kwargs)
 
 
 @register.assignment_tag

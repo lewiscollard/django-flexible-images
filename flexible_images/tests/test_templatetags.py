@@ -1,5 +1,9 @@
 from xml.etree.ElementTree import fromstring as et_fromstring
 
+from ..templatetags.django_jinja_flexible_images \
+    import flexible_image as django_jinja_flexible_image, \
+    flexible_image_list as django_jinja_flexible_image_list
+
 from ..templatetags.flexible_images import flexible_image, flexible_image_list
 from ..util import possible_engines
 from .base import FlexibleImageTestCase
@@ -40,8 +44,17 @@ class TemplateTagsTestCase(FlexibleImageTestCase):
                     # While it returns HTML, it should also be well-formed XML.
                     et_fromstring(html)
 
+                    # Make sure the django-jinja output is always,
+                    # byte-for-byte, identical to the normal HTML output.
+                    django_jinja_html = django_jinja_flexible_image(self.image, **argdict)
+                    self.assertEqual(html, django_jinja_html)
+
     def test_flexible_image_list(self):
         images = flexible_image_list(self.image)
+        images_pj = django_jinja_flexible_image_list(self.image)
+        self.assertEqual(images, images_pj)
         self.assertTrue(isinstance(images, list))
+        self.assertTrue(isinstance(images_pj, list))
+
         for item in images:
             self.assertTrue(isinstance(item, dict))
